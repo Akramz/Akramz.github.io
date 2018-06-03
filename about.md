@@ -4,5 +4,5 @@ title: About
 permalink: /about/
 ---
 
-Blah Blaahh. .
+Akramz Backyard Technology .. 
 

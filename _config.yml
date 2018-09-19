@@ -23,7 +23,7 @@ twitter_username: Akramoz
 github_username:  Akramz
 
 # Build settings
-markdown: kramdown
+markdown: maruku
 theme: minima
 plugins:
   - jekyll-feed

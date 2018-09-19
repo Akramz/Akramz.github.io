@@ -3,8 +3,8 @@ layout: post
 title:  "Indaba 18’ notes: Linear Algebra for Machine Learning"
 date:   2018-06-03 12:00:00 +0000
 categories: Data Analysis
+use_math: true
 ---
-# Indaba 18’ notes: Linear Algebra for Machine Learning
 Linear algebra is a branch of mathematics that is widely used throughout science and engineering. Yet because linear algebra is a form of continuous rather than discrete mathematics, many computer scientists have little experience with it. A good understanding of linear algebra is essential for understanding and working with many machine learning algorithms, especially deep learning algorithms.
 
 # Scalars, Vectors, Matrices, and Tensors

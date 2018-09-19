@@ -1,7 +1,113 @@
 ---
 layout: post
-title:  "Descriptive Statistics : Overview"
+title:  "Indaba 18’ notes: Linear Algebra for Machine Learning"
 date:   2018-06-03 12:00:00 +0000
 categories: Data Analysis
 ---
-Hi .. Descriptive Stats ..
+# Indaba 18’ notes: Linear Algebra for Machine Learning
+Linear algebra is a branch of mathematics that is widely used throughout science and engineering. Yet because linear algebra is a form of continuous rather than discrete mathematics, many computer scientists have little experience with it. A good understanding of linear algebra is essential for understanding and working with many machine learning algorithms, especially deep learning algorithms.
+
+# Scalars, Vectors, Matrices, and Tensors
+
+The Study of Linear algebra involves several types of mathematical objects, as follow
+
+## Scalars
+
+A Scalar is just a single number, in contrast to most of the other objects studied in linear algebra, which are usually arrays of multiple numbers.
+
+## Vectors
+
+A Vector is an array of numbers. We can identify each individual number by its index in the array ordering. If each vector element is in $$\Bbb R$$, and the vector has $$n$$ elements, than the vector lies in the set formed by taking the cartesian product of $$\Bbb R$$ $$n$$ times, denoted as $$\Bbb{R}^n$$, a typical way to represent vectors is as follows:
+
+$$\bold{x} = \begin{bmatrix}x_1\\x_2\\\vdots\\x_n\end{bmatrix}$$
+
+We can think of vectors as identifying a point in space, with each element giving the coordinate along a different axis.
+Sometimes we need to index a set of element in a vector. In this case, we define a set containing the indices and write the set as a subscript. for example, to access $$x_1$$, $$x_3$$, and $$x_6$$, we define the set $$S=\{1,3,6\}$$ and write $$x_S$$. We use the $$-$$ sign to index the complement of a set. For example $$x_{-1}$$ is the vector containing all elements of $$x$$ except $$x_1$$, and $$x_{-S}$$ is the vector containing all elements of $$x$$ except $$x_1$$, $$x_3$$, and $$x_6$$.
+
+## Matrices
+
+A Matrix is a 2-D array of numbers, so each element is identified by two indices instead of just one. If a real valued Matrix $$\bold{A}$$ has a height of $$m$$ and a width of $$n$$, then we say that $$\bold{A} \in \Bbb{R}^{m \times n}$$. To identify elements in a matrix we use the lower indices, for example, $$A_{1,1}$$ is the upper left entry of $$\bold{A}$$, and $$A_{m,n}$$ is the bottom right entry of the matrix $$\bold{A}$$. We can identify all the numbers with vertical coordinate $$i$$ by writing a ‘:’ for the horizontal coordinate. For example $$A_{i,:}$$ denotes the horizontal cross section of $$\bold{A}$$ with vertical coordinate $$i$$, this is known as the i-th row of $$\bold{A}$$. Likewise, $$A_{:,j}$$ is the j-th column of $$\bold{A}$$, when we need to explicitly identify the elements of a matrix, we write them as an array enclosed in aquare brackets:
+
+$$\bold{A} = \begin{bmatrix}A_{1,1} & A_{1,2}\\A_{2,1} & A_{2,2}\end{bmatrix}$$
+
+## Tensors
+
+In some cases we will need an array with more than two axes. In the general case, an array of numbers arranged on a regular grid with a variable number of axes is known as a tensor. We identify elements of a tensor by using multiple ordered indices by axis, example: $$A_{i,j,k,l,m}$$.
+
+## Transpose 
+
+One important operation on matrices is the **transpose.** The transpose of a matrix is the mirror image of the matrix across a diagonal line, called the **main diagonal** , we denote the transpose of a Matrix $$\bold{A}$$ as $$\bold{A}^T$$, and it is defined such as:
+
+$$A_{i,j}=(A^{T})_{j,i} \quad \forall (i,j) \in [0,m] \times [0,n]$$
+
+Vectors can be thought of as matrices that contain only one **column.** The transpose of a vector is therefore a matrix with one row.
+
+A Scalar can be thought of as a matrix with only a single entry. From this, we can see that a scalar is its own transpose: $$a=a^T$$.
+
+## Matrices Addition 
+
+We can add matrices to each other, as long as they have the same shape, just by adding their corresponding elements: $$\bold{C}=\bold{A} + \bold{B}$$ where $$C_{i,j} = A_{i,j} + B_{i,j} \quad \forall (i,j) \in [0,m] \times [0,n]$$.
+
+You can also add a scalar to a matrix or multiply a matrix by a scalar, just by performing that operation on each element of the matrix: $$\bold{D}=a \cdot B + c$$ where $$D_{i,j} = a \cdot B_{i,j} + c$$.
+
+In the context of deep learning, we also use some less conventional notation. We allow the addition of a Matrix and a Vector, yielding another matrix, $$\bold{C}=\bold{A}+\bold{b}$$, where $$C_{i,j} = A_{i,j} + b_{j}$$ , in other words, the vector $$b$$ is added to each row of the matrix. This implicit copying of $$b$$ to many locations is called **broadcasting**.
+
+# Multiplying Matrices and Vectors
+
+one of the most important operations involving matrices is multiplication of two matrices. the matrix product of Matrices $$\bold{A}$$ and $$\bold{B}$$ is a third matrix $$\bold{C}$$, in order for this product to be defined, $$\bold{A}$$ must have the same number of columns as $$\bold{B}$$ has rows. If $$\bold{A}$$ is of shape $$m \times n$$ and $$\bold{B}$$ is of shape $$n \times p$$, then $$\bold{C}$$ is of shape $$m \times p$$. We can write the matrix product just by placing two or more matrices together, for example:
+ $$\bold{C}=\bold{AB}$$.
+
+The Product Operation if defined by:
+$$C_{i,j} = \sum_{k}A_{i,k}B_{k,j}$$
+
+This operation is different than element-wise product, or **Hadamard product**, denoted as $$\bold{A} \odot \bold{B}$$.
+
+The dot product between two vectors $$x$$ and $$y$$ of the same dimensionality is the matrix product $$\bold{x}^{T}\bold{y}$$.
+
+Matrix product operations have many useful properties that make mathematical analysis of matrices more convenient. For example, matrix multiplication is distributive:
+$$\bold{A}(\bold{B}+\bold{C})=\bold{AB}+\bold{AC}$$
+
+It is also associative:
+$$\bold{A(BC)}=\bold{(AB)C}$$
+
+Matrix multiplication is not commutative (the condition $$\bold{AB}=\bold{BA}$$ does not always hold). However, the dot product between two vectors is commutative:
+$$x^{T}y=y^{T}x$$
+
+The transpose of a matrix product has a simple form:
+$$(\bold{AB})^{T}=\bold{A}^{T}\bold{B}^{T}$$
+
+We now know enough linear algebra notation to write down a system of linear equations:
+$$\bold{Ax}=\bold{b}$$
+
+Where $$\bold{A} \in \Bbb{R}^{m \times n}$$ is a known matrix, $$\bold{b} \in \Bbb{R}^{m}$$ is a known vector, and $$\bold{x} \in \Bbb{R}^{n}$$ is a vector of unknown variables we would like to solve for. Each element $$x_i$$ of $$\bold{x}$$ is one of these unknown variables. Each row of $$\bold{A}$$ and each element of $$\bold{b}$$ provide another constraint.
+
+Matrix-vector product notation provides a more compact representation for equations of this form.
+
+# Identity and Inverse Matrices
+
+Linear Algebra offers a powerful tool called **Matrix Inversion** that enables us to analytically solve the equation $$\bold{Ax}=\bold{b}$$ for many values of $$\bold{A}$$.
+
+To describe Matrix inversion, we first need to define the concept of an **identity matrix**. An identity matrix is a matrix that does not change any vector when we multiply that vector by that matrix. We denote the identity matrix that preserves n-dimensional vectors as $$\bold{I}_n$$. Formally, $$\bold{I}_{n} \in \Bbb{R}^{n \times n}$$, and:
+
+$$\forall x \in \Bbb{R}^{n}, \bold{I}_{n}x=x$$
+
+The structure of the identity matrix is simple, all the entries along the main diagonal are 1, while all the other entries are zero.
+
+The **matrix inverse** of $$\bold{A}$$ is denoted as $$\bold{A}^{-1}$$, and it is defined as the matrix such as:
+
+$$\bold{A}\bold{A}^{-1}=\bold{I}_n$$
+
+We can now solve $$\bold{A}x=b$$ using the following steps:
+$$\bold{A}x=b$$
+$$\bold{A^{-1}A}x=\bold{A}^{-1}b$$
+$$\bold{I}_{n}x=\bold{A}^{-1}b$$
+$$x=\bold{A}^{-1}b$$
+
+Ofcoures, this process depends on it being possible to find $$\bold{A}^{-1}$$.
+When $$\bold{A}^{-1}$$ exists, several different algorithms can find it in closed form. In theory, the same inverse matrix can then be used to solve the equation many times for different values of $$b$$.
+
+$$\bold{I}_{3} = \begin{bmatrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & 1\end{bmatrix}$$
+
+$$\bold{A}^{-1}$$ is primarily useful as a theoretical tool, however, and should not be actually used in practice for most software applications. because $$\bold{A}^{-1}$$ can be represented with only limited precision on a digital computer, algorithms that make use of the value of $$b$$ can usually obtain more accurate estimates of $$x$$. 
+
+
